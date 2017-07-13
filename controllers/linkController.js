@@ -16,7 +16,10 @@ exports.getShortURL = async (req, res) => {
   let foundYou = await URL.findOne({ shortLink: url2Find }, function(err, character) {
     console.log(character); // { name: 'Frodo', inventory: { ringOfPower: 1 }}
   });
-  res.redirect(foundYou.originalLink);
+  if(foundYou)
+    res.redirect(foundYou.originalLink);
+  else
+    res.send('Please try a valid link instead');
 }
 
 // Functions from https://stackoverflow.com/questions/8498592/extract-hostname-name-from-string
